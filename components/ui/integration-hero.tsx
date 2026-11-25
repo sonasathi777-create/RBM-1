@@ -1,14 +1,89 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { brands, type Brand } from "@/lib/brands";
 import { ActionLink, Arrow, headingStyles } from "../ui";
 
 function BrandRow({ items, reverse = false }: { items: Brand[]; reverse?: boolean }) {
-  return <div className="brand-marquee-row">
+  const slider = useRef<HTMLDivElement>(null);
+  const interaction = useRef({ active: false, paused: false, lastX: 0, resumeAt: 0 });
+
+  useEffect(() => {
+    const element = slider.current;
+    if (!element) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let previous = 0;
+    let position = 0;
+    let distance = 0;
+    const measure = () => {
+      distance = element.querySelector<HTMLElement>(".brand-marquee-group")?.offsetWidth ?? 0;
+      position = distance;
+      element.scrollLeft = position;
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    const tick = (time: number) => {
+      const delta = previous ? Math.min(time - previous, 50) : 0;
+      previous = time;
+      const state = interaction.current;
+      if (state.active || state.paused || time < state.resumeAt || reduced.matches) {
+        position = element.scrollLeft;
+      } else if (distance > 0) {
+        position += delta * (reverse ? -0.035 : 0.035);
+        if (position >= distance * 2) position -= distance;
+        if (position < distance) position += distance;
+        element.scrollLeft = position;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(frame); observer.disconnect(); };
+  }, [reverse]);
+
+  return <div ref={slider} className="brand-marquee-row" tabIndex={0} role="region" aria-label="Brand logos. Swipe, drag, or use left and right arrow keys to scroll." data-lenis-prevent
+    onMouseEnter={() => { interaction.current.paused = true; }}
+    onMouseLeave={() => { interaction.current.paused = false; }}
+    onFocus={() => { interaction.current.paused = true; }}
+    onBlur={() => { interaction.current.paused = false; }}
+    onTouchStart={() => { interaction.current.active = true; }}
+    onTouchEnd={() => { interaction.current.active = false; interaction.current.resumeAt = performance.now() + 2500; }}
+    onTouchCancel={() => { interaction.current.active = false; interaction.current.resumeAt = performance.now() + 2500; }}
+    onWheel={() => { interaction.current.resumeAt = performance.now() + 2500; }}
+    onKeyDown={event => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      event.currentTarget.scrollLeft += event.key === "ArrowRight" ? 180 : -180;
+      interaction.current.resumeAt = performance.now() + 2500;
+    }}
+    onPointerDown={event => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+      event.preventDefault();
+      interaction.current.active = true;
+      interaction.current.lastX = event.clientX;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      event.currentTarget.dataset.dragging = "true";
+    }}
+    onPointerMove={event => {
+      if (event.pointerType !== "mouse" || !interaction.current.active) return;
+      event.currentTarget.scrollLeft += interaction.current.lastX - event.clientX;
+      interaction.current.lastX = event.clientX;
+    }}
+    onLostPointerCapture={event => {
+      interaction.current.active = false;
+      interaction.current.resumeAt = performance.now() + 2500;
+      event.currentTarget.dataset.dragging = "false";
+    }}
+    onPointerUp={event => {
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    }}>
     <div className="brand-marquee-track" data-reverse={reverse}>
-      {[0, 1].map(copy => <ul key={copy} aria-hidden={copy === 1 ? true : undefined} className="brand-marquee-group">
+      {[0, 1, 2].map(copy => <ul key={copy} aria-hidden={copy !== 1 ? true : undefined} className="brand-marquee-group">
         {items.map(brand => <li key={brand.name} className="brand-wordmark-card">
           <span className="brand-logo-badge" data-dark={brand.darkBadge} data-has-logo={Boolean(brand.logo)}>
-            {brand.logo ? <Image src={brand.logo} alt={`${brand.name} logo`} width={100} height={80} className="brand-logo-image" unoptimized /> : <span className="brand-wordmark-name font-heading">{brand.name}</span>}
+            {brand.logo ? <Image src={brand.logo} alt={`${brand.name} logo`} width={100} height={80} draggable={false} className="brand-logo-image" unoptimized /> : <span className="brand-wordmark-name font-heading">{brand.name}</span>}
           </span>
           <span className="brand-caption">{brand.name}</span>
         </li>)}
