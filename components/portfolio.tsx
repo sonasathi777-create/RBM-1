@@ -3,7 +3,20 @@ import { projects } from "@/lib/projects";
 import CardFanCarousel from "./ui/card-fan-carousel";
 import { Arrow, headingStyles, sectionStyles } from "./ui";
 
-const selectedProjects = projects.filter(project => project.slug !== "the-paw-story");
+const selectedProjectSlugs = [
+  "utsav",
+  "hideaway",
+  "amber",
+  "wow-china",
+  "1937",
+  "flavours-of-india",
+  "kinkys",
+  "wow-kulfi",
+  "turtle",
+];
+const selectedProjects = selectedProjectSlugs.flatMap(slug =>
+  projects.filter(project => project.slug === slug)
+);
 
 export function Portfolio() {
   return <section id="work" aria-labelledby="selected-work-heading" className={sectionStyles}>
