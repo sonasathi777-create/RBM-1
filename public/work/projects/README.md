@@ -23,3 +23,5 @@ Use `app/work/[slug]/page.tsx` for Amber and all future brand details pages, fol
 For each new brand, add its metadata in `lib/projects.ts` and its headline, introduction, direction, accent colour, statement and three craft entries in `lib/project-stories.ts`. Add numbered WebP frames and accurate dimensions in `lib/project-image-dimensions.json`. Preserve each PDF page as a complete, uncropped frame: page 1 is the opening artwork, page 2 appears in the direction panel, and pages 3 onward appear in the gallery. The artwork viewer includes all pages. Use brand-specific content and accent colours within this shared layout.
 
 Amber includes all 14 pages of the supplied AMBER.pdf as numbered WebP frames in `amber/`.
+
+Wow Kulfi includes all 11 pages of `kulfi_showcase.pdf` as numbered WebP frames in `wow-kulfi/`, with the supplied summer campaign reel. The reel uses the shared gallery’s muted autoplay, looping and playback controls.

@@ -9,6 +9,19 @@ export type ProjectStory = {
 };
 
 export const projectStories: Record<string, ProjectStory> = {
+  "wow-kulfi": {
+    headline: "A little nostalgia. A whole lot of summer.",
+    intro: "Wow Kulfi’s collection brings summer treats and familiar memories into a bright, playful world. Flavour-led artwork sits alongside illustrated family moments, street scenes and a summer campaign reel, connecting the joy of kulfi with everyday occasions.",
+    directionTitle: "Give every flavour a moment in the sun.",
+    direction: "A signature pink backdrop connects colourful product compositions, playful headlines and illustrated stories. Mango, traditional flavours and seasonal moments each bring their own character, while shared colour and typography keep the collection recognisable.",
+    statement: "Familiar flavours. Fresh memories. A little wow.",
+    accent: "#f3a1cb",
+    craft: [
+      { title: "Flavour at the centre", text: "Kulfi, mango and traditional dessert flavours lead the layouts, with bright colour and generous product imagery." },
+      { title: "Memories, illustrated", text: "Family moments and everyday scenes bring an affectionate, nostalgic voice to the brand’s social storytelling." },
+      { title: "Summer in motion", text: "A seasonal campaign reel extends the playful visual world from still artwork into video." },
+    ],
+  },
   "1937": {
     headline: "Old Calcutta. A fresh place at the table.",
     intro: "1937 brings bakery, coffeehouse and cocktail bar stories together through the flavours and atmosphere of Calcutta. This collection pairs cabin classics, in-house desserts and coffee with the warmth of the dining room and films that bring its character to life.",

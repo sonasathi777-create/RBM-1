@@ -16,6 +16,16 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "wow-kulfi", name: "Wow Kulfi", category: "Food & drink",
+    summary: "Summer flavours, familiar memories and a playful pink world. Social creatives and a summer campaign reel for Wow Kulfi.",
+    services: ["Social content", "Creative direction", "Seasonal campaigns", "Video Studio"],
+    sourceFolder: "wow-kulfi", boardCount: 11, coverBoard: 1,
+    originalFiles: Array.from({ length: 11 }, (_, index) => `${String(index + 1).padStart(2, "0")}.webp`),
+    localVideos: [
+      { src: "/work/projects/wow-kulfi/summer-campaign.mp4", title: "Wow Kulfi: summer campaign", poster: "/work/projects/wow-kulfi/02.webp" },
+    ],
+  },
+  {
     slug: "1937", name: "1937", category: "Food & drink",
     summary: "Calcutta’s culinary memories, freshly told. Food photography, coffeehouse stories, dessert creatives and films for 1937.",
     services: ["Social content", "Food photography", "Creative direction", "Video Studio"],
