@@ -10,10 +10,29 @@ export type Project = {
   boardCount: number;
   coverBoard: number;
   originalFiles?: string[];
+  localVideos?: { src: string; title: string; poster?: string }[];
   video?: { src: string; title: string };
 };
 
 export const projects: Project[] = [
+  {
+    slug: "1937", name: "1937", category: "Food & drink",
+    summary: "Calcutta’s culinary memories, freshly told. Food photography, coffeehouse stories, dessert creatives and films for 1937.",
+    services: ["Social content", "Food photography", "Creative direction", "Video Studio"],
+    sourceFolder: "1937", boardCount: 26, coverBoard: 1,
+    originalFiles: ["WhatsApp Image 2026-10-26 at 7.39.07 PM (4).jpeg", "Artboard 12 copy 2@3x.jpg", "Artboard 12 copy 3@3x.jpg", "Artboard 12 copy 4@3x.jpg", "Artboard 12 copy@3x.jpg", "Artboard 12@3x.jpg", "WhatsApp Image 2026-10-26 at 7.37.17 PM (2).jpeg", "WhatsApp Image 2026-10-26 at 7.37.17 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.37.18 PM (1).jpeg", "WhatsApp Image 2026-10-26 at 7.37.18 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.37.19 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.37.57 PM (1).jpeg", "WhatsApp Image 2026-10-26 at 7.37.57 PM (2).jpeg", "WhatsApp Image 2026-10-26 at 7.37.57 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.37.58 PM (1).jpeg", "WhatsApp Image 2026-10-26 at 7.37.58 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.38.25 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.39.07 PM (1).jpeg", "WhatsApp Image 2026-10-26 at 7.39.07 PM (3).jpeg", "WhatsApp Image 2026-10-26 at 7.39.07 PM.jpeg", "WhatsApp Image 2026-10-26 at 7.39.08 PM.jpeg", "WhatsApp Image 2026-10-28 at 3.39.02 PM.jpeg", "WhatsApp Image 2026-10-28 at 3.39.03 PM (1).jpeg", "WhatsApp Image 2026-10-28 at 3.39.03 PM (2).jpeg", "WhatsApp Image 2026-10-28 at 3.39.03 PM.jpeg", "WhatsApp Image 2026-10-28 at 3.39.04 PM.jpeg"],
+    localVideos: [
+      { src: "/work/projects/1937/film-02.mp4", title: "1937: our favourite things", poster: "/work/projects/1937/16.webp" },
+      { src: "/work/projects/1937/film-03.mp4", title: "1937: Calcutta’s culinary story", poster: "/work/projects/1937/21.webp" },
+    ],
+  },
+  {
+    slug: "amber", name: "Amber", category: "Food & drink",
+    summary: "Amber, established in 1959. A frame-by-frame collection of food photography, cocktail stories and social creatives.",
+    services: ["Social content", "Food photography", "Creative direction"],
+    sourceFolder: "amber", boardCount: 14, coverBoard: 1,
+    originalFiles: Array.from({ length: 14 }, (_, index) => `${String(index + 1).padStart(2, "0")}.webp`),
+  },
   {
     slug: "wow-china", name: "Wow China", category: "Food & drink",
     summary: "Bold red creatives, food close-ups, and flavours from across Asia. Social content and video stories for Wow China.",
@@ -65,6 +84,7 @@ export function projectImage(project: Project, board = project.coverBoard) {
 }
 
 export function projectImageDimensions(project: Project, board = project.coverBoard) {
+  if (project.slug === "amber") return { width: 2200, height: 1556 };
   const key = `${project.slug}/${board}` as keyof typeof imageDimensions;
   return imageDimensions[key] ?? { width: 3508, height: 2480 };
 }

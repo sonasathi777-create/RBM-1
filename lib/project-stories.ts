@@ -9,6 +9,32 @@ export type ProjectStory = {
 };
 
 export const projectStories: Record<string, ProjectStory> = {
+  "1937": {
+    headline: "Old Calcutta. A fresh place at the table.",
+    intro: "1937 brings bakery, coffeehouse and cocktail bar stories together through the flavours and atmosphere of Calcutta. This collection pairs cabin classics, in-house desserts and coffee with the warmth of the dining room and films that bring its character to life.",
+    directionTitle: "Give the city’s food memories a new expression.",
+    direction: "Forest green, cream and terracotta connect editorial layouts with rich food photography. Stamp borders, newspaper-inspired compositions and expressive type carry stories of familiar dishes, while interior details and people give the collection a welcoming rhythm.",
+    statement: "From Calcutta, with love. Made for a new generation.",
+    accent: "#e8e1d5",
+    craft: [
+      { title: "Food with a story", text: "Cabin classics, pastries and coffee lead the imagery, connecting individual menu items with the wider story of the coffeehouse." },
+      { title: "A familiar visual language", text: "Green, cream and terracotta unite vintage-inspired typography, stamp details and contemporary food compositions." },
+      { title: "The coffeehouse in motion", text: "Films sit alongside dining-room details and social creatives, bringing people, atmosphere and food into the same collection." },
+    ],
+  },
+  amber: {
+    headline: "A legacy of flavour. A story in every frame.",
+    intro: "Established in 1959, Amber brings food, cocktails and the art of gathering into one warm visual world. This collection moves from the atmosphere of its dining room to the detail of its dishes, drinks and the people behind them.",
+    directionTitle: "Bring a familiar legacy into the feed.",
+    direction: "Cream and gold meet rich food photography, expressive typography and the warmth of the restaurant. Menu stories, cocktail features and moments from the kitchen connect Amber’s heritage with an inviting social presence.",
+    statement: "Where every plate carries the comfort of years.",
+    accent: "#f2e7c8",
+    craft: [
+      { title: "Flavour in focus", text: "Close-ups of food and cocktails bring colour, texture and the details of each serving to the foreground." },
+      { title: "Heritage in the details", text: "Amber’s established identity, warm palette and considered typography connect the creative across the collection." },
+      { title: "The people behind the plate", text: "Kitchen portraits and dining moments give the menu a human story, alongside the dishes and drinks." },
+    ],
+  },
   "wow-china": {
     headline: "Big flavour. A world to explore.",
     intro: "Noodles, familiar favourites, and dishes from across Asia come together in this collection for Wow China. Bold food creatives sit alongside everyday dining moments and video stories.",
