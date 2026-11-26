@@ -7,6 +7,7 @@ import { projectBoards, type Project } from "@/lib/projects";
 import { useSiteControls } from "./site-shell";
 import { Button } from "./ui";
 import videoData from "@/lib/project-videos.json";
+import { AutoplayVideo } from "./autoplay-video";
 
 export function ProjectGallery({ project, startAt = 1, excludeVideoId, includeOpeningBoard = false }: { project: Project; startAt?: number; excludeVideoId?: string; includeOpeningBoard?: boolean }) {
   const boards = projectBoards(project);
@@ -31,7 +32,7 @@ export function ProjectGallery({ project, startAt = 1, excludeVideoId, includeOp
     <section aria-labelledby="project-gallery-heading" className="px-[5%] pt-16 pb-20 min-[751px]:px-[4.5%] min-[751px]:pt-24 min-[751px]:pb-28">
       <div className="mb-10 flex flex-col items-start justify-between gap-5 min-[601px]:flex-row min-[601px]:items-end"><h2 id="project-gallery-heading" className="text-4xl font-semibold tracking-tight min-[751px]:text-5xl">The story, frame by frame<span className="text-brand">.</span></h2><p className="text-xs text-muted">Select an artwork for a closer look <FiMaximize2 aria-hidden="true" className="ml-2 inline" /></p></div>
       <div className="mx-auto max-w-[1440px] columns-1 gap-4 min-[481px]:columns-2 min-[901px]:columns-3 min-[1280px]:columns-4">
-        {project.localVideos?.map(video => <figure key={video.src} className="mb-4 break-inside-avoid"><video src={video.src} poster={video.poster} autoPlay muted loop controls playsInline preload="metadata" aria-label={video.title} className="block h-auto w-full rounded-2xl border border-line bg-black" /><figcaption className="flex justify-between gap-3 py-2 font-mono text-[10px] text-muted"><span>{video.title}</span><span>VIDEO</span></figcaption></figure>)}
+        {project.localVideos?.map(video => <figure key={video.src} className="mb-4 break-inside-avoid"><AutoplayVideo src={video.src} poster={video.poster} autoPlay muted loop controls playsInline preload="metadata" aria-label={video.title} className="block h-auto w-full rounded-2xl border border-line bg-black" /><figcaption className="flex justify-between gap-3 py-2 font-mono text-[10px] text-muted"><span>{video.title}</span><span>VIDEO</span></figcaption></figure>)}
         {videos.filter(video => video.id !== excludeVideoId).map(video => <figure key={video.id} className="mb-4 break-inside-avoid"><div className="overflow-hidden rounded-2xl border border-line bg-black"><iframe src={`/video-player/${encodeURIComponent(video.id)}`} title={video.title} allow="autoplay; fullscreen" allowFullScreen loading="lazy" className="block w-full border-0" style={{ aspectRatio: video.aspectRatio }} /></div><figcaption className="flex justify-between gap-3 py-2 font-mono text-[10px] text-muted"><span>{video.title}</span><span>VIDEO</span></figcaption></figure>)}
         {boards.filter(board => board.number >= startAt || (includeOpeningBoard && board.number === 1)).map(board => <figure key={board.number} className="mb-4 break-inside-avoid">
           <button type="button" onClick={() => setActive(board.number - 1)} aria-label={`Enlarge ${project.name} board ${board.number}`} className="group relative block w-full overflow-hidden rounded-2xl border border-line bg-[#141414] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
